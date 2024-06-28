@@ -8,44 +8,51 @@ import { initialComments} from '../Comments/CommentList'
 
 
 const UserComment = () => {
+
+const handleLike = () => {}
+const handleUnlike = () => {}
+
   return (
     <>
-        <div className="container-reply mx-auto px-4 space-y-4">
-            {initialComments.map((comment) => (
-                
-            <div className="comment bg-white p-4 rounded-md shadow-md flex items-start">
-                <div className="likes">
-                    <button className="likes__button">
-                        <img src={plus} alt="" />
-                    </button>
-                    <span className="likes__count">{comment.likes}</span>
-                    <button className="likes__button">
-                        <img src={minus} alt="" />
-                    </button>
-
-                </div>
-                <div className="right">
-                <div className="comment__user">
-                    <div className="details">
-                        <img src={image} alt="User" />
-                        <h3>{comment.username}</h3>
-                        <span className='user'>you</span>
-                        <span className='time'>{comment.time}</span>
-                    </div>
-                    <button className='delete'>
-                        <img src={dlt} alt="" />
-                        Delete
-                    </button>
-                    <button className='edit'>
-                        <img src={edit} alt="" />
-                        Edit
-                    </button>
-                </div>
-                <p className="comment__content">{comment.content}</p>
-                </div>
+        <div className="container-reply w-4/5 mx-auto px-4 space-y-4 flex flex-col">
+    {initialComments.map((comment) => (
+        <div key={comment.id} className="comment bg-white p-4 rounded-lg shadow-md flex items-start">
+            <div className="likes bg-gray-100 mr-4 p-2 rounded-lg flex flex-col items-center">
+                <button className="likes__button focus:outline-none mb-2" onClick={() => handleLike()}>
+                    <img src={plus} alt="Increase likes" className="w-5 h-5" />
+                </button>
+                <span className="likes__count text-blue-600 font-bold text-lg">{comment.likes}</span>
+                <button className="likes__button focus:outline-none mt-2" onClick={() => handleUnlike()}>
+                    <img src={minus} alt="Decrease likes" className="w-5 h-5" />
+                </button>
             </div>
-            ))}
+            <div className="right w-full">
+                <div className="comment__user flex items-center justify-between mb-2">
+                    <div className="info flex flex-row items-center">
+                        <img src={image} alt="User" className="rounded-full w-10 h-10 mr-3" />
+                        <div className="flex flex-col">
+                            <h3 className="text-lg font-semibold">{comment.username}</h3>
+                            <span className="time text-sm text-gray-500">{comment.time}</span>
+                        </div>
+                    </div>
+                    <div className="controlbtns flex flex-row items-center">
+                        <button className="delete flex items-center mr-3 text-red-500 focus:outline-none">
+                            <img src={dlt} alt="Delete" className="w-4 h-4 mr-1 inline" />
+                            Delete
+                        </button>
+                        <button className="edit flex items-center text-blue-500 focus:outline-none">
+                            <img src={edit} alt="Edit" className="w-4 h-4 mr-1 inline" />
+                            Edit
+                        </button>
+                    </div>
+                </div>
+                <p className="comment__content text-gray-800">{comment.content}</p>
+            </div>
         </div>
+    ))}
+    </div>
+
+
     </>
   )
 }
