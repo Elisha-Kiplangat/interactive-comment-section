@@ -23,12 +23,21 @@ export const initialComments: Comment[] = [
     }
 ];
 
-type Action = { type: 'ADD_COMMENT'; payload: Comment };
+type Action = 
+    { type: 'ADD_COMMENT'; payload: Comment }
+|    { type: 'LIKE_COMMENT'; payload: number };
+
 
 export const commentReducer = (state: Comment[], action: Action): Comment[] => {
     switch (action.type) {
         case 'ADD_COMMENT':
             return [...state, action.payload];
+
+        case 'LIKE_COMMENT':
+            return state.map((comment) => 
+                comment.id === action.payload ? { ...comment, likes: comment.likes + 1 } : comment
+            
+            );
         default:
             return state;
     }

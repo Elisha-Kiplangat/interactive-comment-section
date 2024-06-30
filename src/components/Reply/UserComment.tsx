@@ -12,7 +12,7 @@ interface UserCommentProps {
 
 const UserComment = ({ comments }: UserCommentProps) => {
     const handleLike = () => {
-        // Logic to handle like
+        
     };
 
     const handleUnlike = () => {
@@ -24,13 +24,13 @@ const UserComment = ({ comments }: UserCommentProps) => {
             <div className="container-reply w-4/5 mx-auto px-4 space-y-4 flex flex-col">
                 {comments.map((comment) => (
                     <div key={comment.id} className="comment bg-white p-4 rounded-lg shadow-md flex items-start">
-                        <div className="likes bg-gray-100 mr-4 p-2 rounded-lg flex flex-col items-center">
-                            <button className="likes__button focus:outline-none mb-2" onClick={() => handleLike()}>
-                                <img src={plus} alt="Increase likes" className="w-5 h-5" />
+                        <div className="likes bg-gray-200 mr-4 p-2 rounded-md flex flex-col items-center">
+                            <button className="likes__button focus:outline-none mb-2" onClick={handleLike}>
+                                <img src={plus} alt="Increase likes" className="w-3 h-3" />
                             </button>
-                            <span className="likes__count text-blue-600 font-bold text-lg">{comment.likes}</span>
-                            <button className="likes__button focus:outline-none mt-2" onClick={() => handleUnlike()}>
-                                <img src={minus} alt="Decrease likes" className="w-5 h-5" />
+                            <span className="likes__count text-blue-500 font-bold">{comment.likes}</span>
+                            <button className="likes__button focus:outline-none mt-2" onClick={handleUnlike}>
+                                <img src={minus} alt="Decrease likes" className="w-4 h-1" />
                             </button>
                         </div>
                         <div className="right w-full">
