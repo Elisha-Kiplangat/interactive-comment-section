@@ -24,8 +24,9 @@ export const initialComments: Comment[] = [
 ];
 
 type Action = 
-    { type: 'ADD_COMMENT'; payload: Comment }
-|    { type: 'LIKE_COMMENT'; payload: number };
+    { type: 'ADD_COMMENT', payload: Comment }
+|   { type: 'LIKE_COMMENT', payload: number }
+|   { type: 'UNLIKE_COMMENT', payload: number };
 
 
 export const commentReducer = (state: Comment[], action: Action): Comment[] => {
@@ -38,6 +39,11 @@ export const commentReducer = (state: Comment[], action: Action): Comment[] => {
                 comment.id === action.payload ? { ...comment, likes: comment.likes + 1 } : comment
             
             );
+        case 'UNLIKE_COMMENT':
+            return state.map((comment) =>
+                comment.id === action.payload ? { ...comment, likes: comment.likes - 1 } : comment
+            );
+
         default:
             return state;
     }

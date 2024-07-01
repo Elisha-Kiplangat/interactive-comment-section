@@ -1,4 +1,4 @@
-import {useState} from 'react'
+// import {useReducer} from 'react'
 import image from '../../assets/avatars/image-amyrobson.webp'
 import plus from '../../assets/icon-plus.svg'
 import minus from '../../assets/icon-minus.svg'
@@ -11,6 +11,10 @@ export interface comments {
     content: string,
     likes: number
 
+}
+
+interface UserCommentProps {
+    dispatch: (action: { type: string; payload: any }) => void;
 }
 
 export const initialComments: comments[] = [
@@ -32,51 +36,34 @@ export const initialComments: comments[] = [
         }
     ]
 
+    
 
-const CommentList = () => {
+const CommentList = ( { dispatch} :UserCommentProps) => {
 
-//  const [state, dispatch] = useReducer(commentReducer, () => initialComments);
-    const [comments, setComments] = useState<comments[]>(initialComments)
+    // const [state, dispatch] = useReducer(CommentReducer, initialComments);
+    
 
-    const handleLike = () => {
-        setComments((prev) => {
-            return prev.map((comment) => {
-                if (comment.id === comments[0].id) {
-                    return {
-                        ...comment, likes:comment.likes + 1 
-                    }
-                } 
-            return comment
-        })
-        })
+     const handleLike = (id: number) => {
+        dispatch({ type: 'LIKE_COMMENT', payload: id });
+    };
 
-    }
+    const handleUnlike = (id: number) => {
+        dispatch ({ type: 'UNLIKE_COMMENT', payload: id });
+    };
 
-    const handleUnlike = () => {
-        setComments((prev) => {
-            return prev.map((comment) => {
-                if (comment.id === comments[0].id){
-                    return {
-                        ...comment, likes: comment.likes - 1
-                    }
-                }
-                return comment
-            })
-        })
-    }
 
 
   return (
      <>
        <div className="container mx-auto px-4 space-y-4">
         {initialComments.map((comment) => (
-    <div key={comment.id}className="comment bg-white p-4 rounded-md shadow-md flex items-start">
+    <div key={comment.id}className="comment bg-gray-100 p-4 rounded-md shadow-md flex items-start">
         <div className="likes bg-gray-200 mr-4 p-2 rounded-md flex flex-col items-center">
-            <button className="likes__button focus:outline-none mb-2" onClick={handleLike }>
+            <button className="likes__button focus:outline-none mb-2" onClick={()=>handleLike(comment.id)}>
                 <img src={plus} alt="Increase likes" className="w-3 h-3" />
             </button>
             <span className="likes__count text-blue-500 font-bold">{comment.likes}</span>
-            <button className="likes__button focus:outline-none mt-2" onClick={handleUnlike}>
+            <button className="likes__button focus:outline-none mt-2" onClick={()=>handleUnlike(comment.id)}>
                 <img src={minus} alt="Decrease likes" className="w-4 h-1" />
             </button>
         </div>
